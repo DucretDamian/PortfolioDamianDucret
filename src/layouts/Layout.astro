@@ -1,0 +1,49 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/layout/Navbar.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Damián Ducret — Portfolio',
+  description = 'Portfolio personal de Damián Ducret. Proyectos, arquitectura de software y espacio de trabajo interactivo.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Detección híbrida de tema: preferencia guardada o según hora del día local -->
+    <script is:inline>
+      (function () {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || savedTheme === 'light') {
+          document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+        } else {
+          const hour = new Date().getHours();
+          const isNight = hour >= 19 || hour < 7;
+          document.documentElement.classList.toggle('dark', isNight);
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen antialiased selection:bg-primary/15 selection:text-primary">
+    <Navbar />
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
