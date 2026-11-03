@@ -1,0 +1,277 @@
+---
+import CatWidget from './CatWidget.astro';
+---
+
+<section
+  id="inicio"
+  class="relative h-screen max-h-screen w-full pt-14 flex flex-col justify-between overflow-hidden bg-wall transition-colors duration-300"
+>
+  <!-- Contenedor con soporte de Zoom-In hacia adentro del monitor -->
+  <div
+    id="desk-zoom-viewport"
+    class="relative flex-1 w-full h-full flex flex-col justify-between transition-all duration-700 ease-in-out will-change-transform"
+  >
+    <!-- Sutil grilla arquitectónica sobre la pared (solo en la zona de la pared) -->
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.18]"
+      style="background-image: linear-gradient(to right, var(--border-subtle) 1px, transparent 1px), linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px); background-size: 64px 64px;"
+    >
+    </div>
+
+    <!-- ZONA SUPERIOR: LA PARED (Nombre integrado directamente sobre la pared) -->
+    <div class="relative z-10 w-full max-w-5xl mx-auto px-6 pt-6 sm:pt-8 text-center shrink-0">
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-primary">
+        Damián Ducret
+      </h1>
+      <p class="mt-2 text-xs sm:text-sm font-mono text-muted/85">
+        Explora mi escritorio para conocerme.
+      </p>
+    </div>
+
+    <!-- ZONA INFERIOR: ESCENA DEL ESCRITORIO Y MESA DE PUNTA A PUNTA -->
+    <div class="relative z-10 w-full flex flex-col items-center justify-end mt-auto">
+      <!-- Fila de objetos apoyados DENTRO del plano de la mesa (-mb-14 mete las bases dentro de la mesa) -->
+      <div class="relative w-full max-w-5xl mx-auto px-4 sm:px-8 flex items-end justify-center gap-8 sm:gap-16 md:gap-24 -mb-14 z-20">
+        <!-- Espaciador izquierdo para equilibrar la composición central -->
+        <div class="hidden md:block w-36" aria-hidden="true"></div>
+
+        <!-- CENTRO: MONITOR INTERACTIVO (Clic = Zoom hacia adentro a Proyectos) -->
+        <div class="flex flex-col items-center">
+          <!-- Píldora flotante encima del monitor -->
+          <button
+            id="monitor-pill-btn"
+            type="button"
+            class="mb-2.5 px-3.5 py-1 rounded-full bg-surface/95 backdrop-blur-sm border border-border shadow-sm flex items-center gap-2 text-[11px] font-mono text-primary hover:border-primary/50 hover:-translate-y-0.5 transition-all cursor-pointer"
+          >
+            <span>🖥</span>
+            <span>Ver Proyectos</span>
+            <span class="text-[10px] text-muted">(clic para entrar)</span>
+          </button>
+
+          <!-- Carcasa del Monitor -->
+          <div
+            id="monitor-screen-trigger"
+            role="button"
+            tabindex="0"
+            aria-label="Hacer zoom en el monitor e ir a la sección de proyectos"
+            class="group relative w-64 sm:w-80 md:w-[360px] h-36 sm:h-44 rounded-xl bg-surface border-[3px] border-border shadow-md p-3 flex flex-col justify-between cursor-pointer hover:border-primary/40 outline-none focus:outline-none transition-all"
+          >
+            <!-- Barra de ventana tipo Mac/Linux -->
+            <div class="flex items-center justify-between border-b border-border/80 pb-1.5">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#E06C75]/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-[#E5C07B]/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-[#98C379]/80"></span>
+              </div>
+              <span class="font-mono text-[10px] text-muted">
+                proyectos.ex — Damián Ducret
+              </span>
+              <span class="font-mono text-[9px] text-muted opacity-0 group-hover:opacity-100 transition-opacity">
+                [ZOOM ↗]
+              </span>
+            </div>
+
+            <!-- Pantalla interior del monitor (Código / Preview de Proyectos) -->
+            <div class="my-auto px-2 space-y-1 font-mono text-[11px] sm:text-xs text-muted select-none">
+              <p>
+                <span class="text-[#C678DD] dark:text-[#D19A66] font-medium">defmodule</span>{' '}
+                <span class="text-primary font-semibold">Portfolio.Proyectos</span>{' '}
+                <span class="text-[#C678DD] dark:text-[#D19A66]">do</span>
+              </p>
+              <p class="pl-3">
+                <span class="text-[#61AFEF]">def</span>{' '}
+                <span class="text-primary">explorar</span>(), <span class="text-[#98C379]">do:</span> [
+              </p>
+              <p class="pl-6 text-primary/90">
+                :en_desarrollo, :finalizados
+              </p>
+              <p class="pl-3">]</p>
+              <p>
+                <span class="text-[#C678DD] dark:text-[#D19A66]">end</span>
+              </p>
+            </div>
+
+            <!-- Pie de pantalla del monitor -->
+            <div class="flex items-center justify-between pt-1 border-t border-border/60 font-mono text-[9px] text-muted">
+              <span>CLICK PARA ENTRAR A PROYECTOS</span>
+              <span class="inline-block w-1.5 h-2.5 bg-primary/70 animate-pulse"></span>
+            </div>
+          </div>
+
+          <!-- Cuello y Base del Monitor apoyada dentro del plano de la mesa -->
+          <div class="w-7 h-6 bg-border/90"></div>
+          <div
+            class="w-28 h-3 bg-border rounded-t-sm shadow-sm"
+            style="clip-path: polygon(12% 0%, 88% 0%, 100% 100%, 0% 100%);"
+          >
+          </div>
+        </div>
+
+        <!-- DERECHA: VELADOR APOYADO EN LA MESA DETRÁS DE LA GATA + LA GATA -->
+        <div class="relative flex items-end">
+          <!-- EL VELADOR (Opción A: Anclado a la mesa en bottom-3 detrás de la gata con poste alto) -->
+          <div
+            class="pointer-events-none absolute bottom-3 -right-14 sm:-right-16 z-0 flex flex-col items-center"
+            aria-hidden="true"
+          >
+            <!-- Halo ambiental de luz cálida alrededor de la pantalla (Solo Modo Oscuro) -->
+            <div
+              class="absolute -top-10 left-1/2 -translate-x-1/2 w-56 h-56 rounded-full opacity-0 dark:opacity-100 transition-opacity duration-700 blur-2xl"
+              style="background: radial-gradient(circle, rgba(251, 191, 36, 0.34) 0%, rgba(245, 158, 11, 0.14) 45%, transparent 72%);"
+            >
+            </div>
+
+            <!-- Cono de luz cálido proyectado hacia la mesa y la gata (Solo Modo Oscuro) -->
+            <div
+              class="absolute top-8 left-1/2 -translate-x-1/2 w-44 h-44 opacity-0 dark:opacity-90 transition-opacity duration-700"
+              style="background: linear-gradient(to bottom, rgba(252, 211, 77, 0.24), transparent); clip-path: polygon(33% 0%, 67% 0%, 100% 100%, 0% 100%);"
+            >
+            </div>
+
+            <!-- SVG del Velador con Poste Alto y Base Firme en la Mesa -->
+            <svg
+              viewBox="0 0 90 195"
+              class="w-24 h-48 sm:w-28 sm:h-52 relative z-10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <!-- Sombra de la base del velador sobre la mesa -->
+              <ellipse
+                cx="45"
+                cy="187"
+                rx="22"
+                ry="5"
+                class="fill-black/15 dark:fill-black/40"
+              />
+              <!-- Brazo / Poste alto del velador que nace en la base sobre la mesa -->
+              <line
+                x1="45"
+                y1="42"
+                x2="45"
+                y2="184"
+                class="stroke-[#8C857B] dark:stroke-[#6E6A63]"
+                stroke-width="3.5"
+                stroke-linecap="round"
+              />
+              <!-- Base sólida del velador apoyada en la mesa -->
+              <ellipse
+                cx="45"
+                cy="185"
+                rx="19"
+                ry="5"
+                class="fill-[#D6D0C4] dark:fill-[#3A3733] stroke-[#8C857B] dark:stroke-[#57534E]"
+                stroke-width="1.5"
+              />
+              <!-- Cadenita / Interruptor colgante -->
+              <line
+                x1="54"
+                y1="42"
+                x2="54"
+                y2="58"
+                class="stroke-[#8C857B] dark:stroke-[#D97706]"
+                stroke-width="1.3"
+              />
+              <circle
+                cx="54"
+                cy="59"
+                r="2.2"
+                class="fill-[#8C857B] dark:fill-[#FBBF24]"
+              />
+              <!-- Bombilla cálida interna (visible encendida en modo oscuro) -->
+              <ellipse
+                cx="45"
+                cy="42"
+                rx="10"
+                ry="4"
+                class="fill-transparent dark:fill-[#FEF08A] transition-colors duration-500"
+              />
+              <!-- Pantalla / Campana del velador -->
+              <path
+                d="M26 12 L64 12 L74 42 L16 42 Z"
+                class="fill-[#E5E0D5] dark:fill-[#F59E0B]/85 stroke-[#8C857B] dark:stroke-[#FBBF24] transition-colors duration-500"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <!-- LA GATA (En primer plano sobre la mesa, delante del velador) -->
+          <div class="relative z-10">
+            <CatWidget mode="svg" name="Gata" />
+          </div>
+        </div>
+      </div>
+
+      <!-- SUPERFICIE DE LA MESA DE PUNTA A PUNTA (El horizonte pasa por detrás de las bases dando profundidad) -->
+      <div class="relative w-full bg-desk border-t-2 border-border pt-16 pb-5 border-b-[10px] border-b-[#DFDBD2] dark:border-b-[#141312] transition-colors duration-300 z-10">
+        <!-- Mousepad / Deskpad y Teclado en Perspectiva 2.5D (Completamente visibles en pantalla) -->
+        <div class="max-w-xl mx-auto px-6 flex flex-col items-center">
+          <div
+            class="w-full max-w-md h-20 sm:h-24 bg-surface/90 dark:bg-[#161514] border border-border flex items-center justify-center shadow-inner transition-colors"
+            style="clip-path: polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%);"
+          >
+            <!-- Teclado mecánico en perspectiva -->
+            <div
+              class="w-44 sm:w-52 h-11 sm:h-12 bg-wall dark:bg-[#252422] border border-border p-2 flex flex-col justify-between shadow-sm"
+              style="clip-path: polygon(7% 0%, 93% 0%, 100% 100%, 0% 100%);"
+            >
+              <!-- Fila 1 (Con tecla ESC roja/terracota) -->
+              <div class="flex items-center gap-1 px-1">
+                <span class="w-3.5 h-1.5 rounded-[1px] bg-[#D96B52]"></span>
+                <span class="flex-1 h-1.5 rounded-[1px] bg-border/80"></span>
+              </div>
+              <!-- Fila 2 -->
+              <div class="flex items-center gap-1 px-0.5">
+                <span class="flex-1 h-1.5 rounded-[1px] bg-border/70"></span>
+              </div>
+              <!-- Fila 3 (Con barra espaciadora destacada) -->
+              <div class="flex items-center justify-center gap-1">
+                <span class="w-4 h-1.5 rounded-[1px] bg-border/70"></span>
+                <span class="w-16 h-1.5 rounded-[1px] bg-accent/80"></span>
+                <span class="w-4 h-1.5 rounded-[1px] bg-border/70"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const viewport = document.getElementById('desk-zoom-viewport');
+  const monitorTrigger = document.getElementById('monitor-screen-trigger');
+  const pillBtn = document.getElementById('monitor-pill-btn');
+
+  function zoomIntoMonitorAndNavigate() {
+    if (!viewport || !monitorTrigger) return;
+
+    const rect = monitorTrigger.getBoundingClientRect();
+    const viewportRect = viewport.getBoundingClientRect();
+    const originX = rect.left - viewportRect.left + rect.width / 2;
+    const originY = rect.top - viewportRect.top + rect.height / 2;
+
+    viewport.style.transformOrigin = `${originX}px ${originY}px`;
+    viewport.style.transform = 'scale(3.8)';
+    viewport.style.opacity = '0';
+
+    setTimeout(() => {
+      const target = document.getElementById('proyectos');
+      target?.scrollIntoView({ behavior: 'smooth' });
+
+      setTimeout(() => {
+        viewport.style.transform = 'scale(1)';
+        viewport.style.opacity = '1';
+      }, 650);
+    }, 480);
+  }
+
+  monitorTrigger?.addEventListener('click', zoomIntoMonitorAndNavigate);
+  pillBtn?.addEventListener('click', zoomIntoMonitorAndNavigate);
+  monitorTrigger?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      zoomIntoMonitorAndNavigate();
+    }
+  });
+</script>

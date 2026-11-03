@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DeskScene from '../components/hero/DeskScene.astro';
+---
+
+<Layout>
+  <!-- 1. INICIO: Escena del Escritorio a pantalla completa (Monitor con Zoom, Velador y Gata) -->
+  <DeskScene />
+
+  <!-- 2. PROYECTOS (Destino del zoom del monitor) -->
+  <section id="proyectos" class="max-w-5xl mx-auto px-6 py-24 border-t border-border/60">
+    <div class="mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-widest text-muted">02 / Desarrollos</p>
+        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-primary mt-1">
+          Proyectos
+        </h2>
+        <p class="text-sm text-muted mt-2">
+          Proyectos actuales en desarrollo y trabajos finalizados con acceso directo a sus repositorios.
+        </p>
+      </div>
+
+      <a
+        href="#inicio"
+        class="self-start sm:self-auto px-3 py-1.5 rounded-full border border-border bg-surface/80 hover:bg-surface font-mono text-xs text-muted hover:text-primary transition-colors"
+      >
+        ↑ Volver al escritorio
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <article class="p-6 rounded-xl bg-surface border border-border/80 flex flex-col justify-between">
+        <div>
+          <span class="inline-block font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-wall border border-border text-muted mb-3">
+            En desarrollo
+          </span>
+          <h3 class="text-lg font-medium text-primary">Próximo Proyecto</h3>
+          <p class="text-sm text-muted mt-2">
+            Espacio reservado para descripción, diagrama de arquitectura o previsualización y enlace al repositorio.
+          </p>
+        </div>
+      </article>
+
+      <article class="p-6 rounded-xl bg-surface border border-border/80 flex flex-col justify-between">
+        <div>
+          <span class="inline-block font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-wall border border-border text-muted mb-3">
+            Finalizado
+          </span>
+          <h3 class="text-lg font-medium text-primary">Proyecto Destacado</h3>
+          <p class="text-sm text-muted mt-2">
+            Espacio reservado para descripción, previsualización y enlace directo a GitHub.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 3. TECNOLOGÍAS Y EXPERIENCIA -->
+  <section id="tecnologias" class="max-w-5xl mx-auto px-6 py-24 border-t border-border/60">
+    <p class="font-mono text-xs uppercase tracking-widest text-muted">03 / Stack</p>
+    <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-primary mt-1">
+      Tecnologías y Experiencia
+    </h2>
+    <p class="text-sm text-muted mt-2">
+      Próximamente: herramientas, lenguajes y recorrido profesional.
+    </p>
+  </section>
+
+  <!-- 4. CONTACTO -->
+  <section id="contacto" class="max-w-5xl mx-auto px-6 py-24 border-t border-border/60">
+    <p class="font-mono text-xs uppercase tracking-widest text-muted">04 / Conectar</p>
+    <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-primary mt-1">
+      Contacto
+    </h2>
+    <p class="text-sm text-muted mt-2">
+      Enlaces directos a GitHub, LinkedIn y correo electrónico.
+    </p>
+  </section>
+</Layout>
