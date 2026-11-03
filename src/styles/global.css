@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* MODO CLARO: Beige muy sutil, cerca del blanco (Alabastro cálido) */
+  --bg-wall: #FAF8F5;
+  --bg-desk: #EFECE6;
+  --bg-surface: #F5F2EB;
+  --border-subtle: #E2DDD5;
+  --text-primary: #2A2826;
+  --text-muted: #6E6A63;
+  --accent-color: #5C6B5E;
+  --lamp-glow: rgba(255, 214, 153, 0);
+}
+
+html.dark {
+  /* MODO OSCURO: Carbón cálido / Grafito suave (no negro puro) */
+  --bg-wall: #232220;
+  --bg-desk: #1C1B19;
+  --bg-surface: #2C2A27;
+  --border-subtle: #3A3733;
+  --text-primary: #EAE6DF;
+  --text-muted: #A09A90;
+  --accent-color: #94A896;
+  --lamp-glow: rgba(255, 196, 112, 0.14);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-wall);
+  color: var(--text-primary);
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+@keyframes tailWag {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(9deg);
+  }
+}
+
+@keyframes earTwitch {
+  0%, 86%, 100% {
+    transform: rotate(0deg);
+  }
+  90% {
+    transform: rotate(7deg);
+  }
+  94% {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes sleepBreathe {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1);
+  }
+  50% {
+    transform: scaleY(1.035) scaleX(1.015);
+  }
+}
+
+@keyframes ambientFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) translateX(0px);
+  }
+  25% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-16px) translateX(5px);
+  }
+}
+
+.animate-tail {
+  transform-origin: 48px 96px;
+  animation: tailWag 3.2s ease-in-out infinite;
+}
+
+.animate-ear {
+  transform-origin: 76px 36px;
+  animation: earTwitch 5.5s ease-in-out infinite;
+}
+
+.animate-ear-sleep {
+  transform-origin: 78px 66px;
+  animation: earTwitch 6.5s ease-in-out infinite;
+}
+
+.animate-sleep-breathe {
+  transform-origin: 60px 104px;
+  animation: sleepBreathe 3.8s ease-in-out infinite;
+}
+
+.animate-ambient-float {
+  animation: ambientFloat 2.4s ease-out forwards;
+}
+
+/* Transición orgánica entre postura sentada (día) y acostada (noche) */
+.cat-pose-awake {
+  opacity: 1;
+  transform: translateY(0) scaleX(1) scaleY(1);
+  transform-origin: 60px 105px;
+  transition:
+    transform 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.36s ease;
+}
+
+html.dark .cat-pose-awake {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px) scaleX(1.14) scaleY(0.68);
+}
+
+.cat-pose-asleep {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px) scaleX(0.88) scaleY(1.22);
+  transform-origin: 60px 105px;
+  transition:
+    transform 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.38s ease;
+}
+
+html.dark .cat-pose-asleep {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scaleX(1) scaleY(1);
+}
